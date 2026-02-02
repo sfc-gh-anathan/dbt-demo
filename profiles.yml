@@ -1,0 +1,13 @@
+dbt_demo:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: wub54834.us-east-1
+      user: anathan
+      authenticator: externalbrowser
+      role: ACCOUNTADMIN
+      database: DBT_DEMO
+      warehouse: DAILY_WH_XS
+      schema: RAW
+      threads: 4

@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Cleaned customer data from the raw layer"
+    columns:
+      - name: customer_id
+        description: "Primary key - unique identifier for each customer"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "Customer email address"
+        tests:
+          - unique
+          - not_null
+      - name: full_name
+        description: "Concatenated first and last name"
+      - name: country
+        description: "Customer's country of residence"
+        tests:
+          - accepted_values:
+              values: ['USA', 'Canada', 'UK', 'Germany', 'France']
+
+  - name: stg_products
+    description: "Cleaned product catalog data"
+    columns:
+      - name: product_id
+        description: "Primary key - unique product identifier"
+        tests:
+          - unique
+          - not_null
+      - name: unit_price
+        description: "Price per unit in USD"
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: "Cleaned order header data"
+    columns:
+      - name: order_id
+        description: "Primary key - unique order identifier"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to customers"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: order_status
+        description: "Current status of the order"
+        tests:
+          - accepted_values:
+              values: ['pending', 'completed', 'cancelled', 'shipped']
+
+  - name: stg_order_items
+    description: "Cleaned order line items"
+    columns:
+      - name: order_item_id
+        description: "Primary key - unique line item identifier"
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Foreign key to orders"
+        tests:
+          - not_null

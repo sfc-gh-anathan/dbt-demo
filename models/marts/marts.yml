@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension with lifetime metrics"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: lifetime_value
+        description: "Total revenue from this customer"
+      - name: total_orders
+        description: "Number of orders placed"
+
+  - name: fct_order_lines
+    description: "Fact table with one row per order line item"
+    columns:
+      - name: order_item_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: line_total
+        description: "Quantity * unit price for this line"

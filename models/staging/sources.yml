@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw data from our e-commerce system"
+    database: DBT_DEMO
+    schema: RAW
+    tables:
+      - name: customers
+        description: "Customer master data"
+        columns:
+          - name: customer_id
+            description: "Unique identifier for each customer"
+          - name: email
+            description: "Customer email address"
+      - name: products
+        description: "Product catalog"
+      - name: orders
+        description: "Order header information"
+      - name: order_items
+        description: "Line items for each order"
